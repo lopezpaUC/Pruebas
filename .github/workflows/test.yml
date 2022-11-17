@@ -2,7 +2,7 @@ name: android-tests
 on:
     push:
         branches:
-            - master
+            - main
             - develop
 jobs:
     android-unit-tests:
