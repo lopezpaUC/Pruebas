@@ -4,6 +4,7 @@ import static androidx.test.espresso.Espresso.onData;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
+import static androidx.test.espresso.action.ViewActions.scrollTo;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.matcher.RootMatchers.isPlatformPopup;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
@@ -63,9 +64,11 @@ public class AnhadirConvenioUITest {
         // Introducir datos
         onView(withId(R.id.spMarca)).perform(click());
         //onData(instanceOf(String.class)).inRoot(isPlatformPopup()).atPosition(0).perform(click());
-        onData(allOf(is(instanceOf(String.class)), is("AGROCANTABRIA"))).inRoot(isPlatformPopup()).perform(click());
+        //onData(allOf(is(instanceOf(String.class)), is("AGROCANTABRIA"))).inRoot(isPlatformPopup()).perform(click());
         //onData(hasToString("AGROCANTABRIA")).inRoot(isPlatformPopup()).perform(click());
         //onView(withText("AGROCANTABRIA")).inRoot(isPlatformPopup()).perform(click());
+
+        onData(anything()).atPosition(0).perform(scrollTo(), click());
         onView(withId(R.id.etConvenioDescuento)).perform(typeText("20"), closeSoftKeyboard());
         onView(withText(R.string.anhadir)).perform(click());
 
