@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <TextView
+        android:id="@+id/tvMarcaConvenio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="76dp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/tvCampoMarcaCovenio"
+        app:layout_constraintStart_toEndOf="@+id/tvCampoMarcaCovenio"
+        tools:text="TextView" />
+
+    <TextView
+        android:id="@+id/tvDescuentoConvenio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBaseline_toBaselineOf="@+id/tvCampoDescuentoConvenio"
+        app:layout_constraintStart_toStartOf="@+id/tvMarcaConvenio"
+        tools:text="TextView" />
+
+    <TextView
+        android:id="@+id/tvCampoMarcaCovenio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="24dp"
+        android:text="@string/conveniosCampoMarca"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvCampoDescuentoConvenio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/conveniosCampoDescuento"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/tvCampoMarcaCovenio"
+        app:layout_constraintTop_toBottomOf="@+id/tvCampoMarcaCovenio" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

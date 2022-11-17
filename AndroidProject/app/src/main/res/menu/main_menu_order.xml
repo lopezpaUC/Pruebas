@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/menuConvenios"
+        android:title="Convenios" />
+    <item
+        android:id="@+id/menuHistorialRepostajes"
+        android:title="Historial Repostajes" />
+    <item
+        android:id="@+id/menuInfo"
+        android:title="@string/info" />
+    <item
+        android:id="@+id/menuDistancia"
+        android:title="Ordenar distancia"
+        android:icon="@drawable/location_32"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/menuPrecio"
+        android:title="Ordenar precio"
+        android:icon="@drawable/low_price_57"
+        app:showAsAction="always" />
+</menu>

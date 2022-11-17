@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="140dp">
+
+    <TextView
+        android:id="@+id/tvAdress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/tvCampoAdressHRepostaje"
+        app:layout_constraintStart_toEndOf="@+id/tvCampoAdressHRepostaje"
+        tools:text="TextView" />
+
+    <TextView
+        android:id="@+id/tvDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="TextView"
+        app:layout_constraintBaseline_toBaselineOf="@+id/tvCampoDateHRepostaje"
+        app:layout_constraintStart_toStartOf="@+id/tvAdress" />
+
+    <TextView
+        android:id="@+id/tvPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="TextView"
+        app:layout_constraintBaseline_toBaselineOf="@+id/tvCampoPriceHRepostaje"
+        app:layout_constraintStart_toStartOf="@+id/tvDate" />
+
+    <TextView
+        android:id="@+id/tvLiters"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="TextView"
+        app:layout_constraintBaseline_toBaselineOf="@+id/tvCampoLitersHRepostaje"
+        app:layout_constraintStart_toStartOf="@+id/tvPrice" />
+
+    <TextView
+        android:id="@+id/tvCampoAdressHRepostaje"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/historial_repostaje_campo_adress"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvCampoDateHRepostaje"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/historial_repostaje_campo_date"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/tvCampoAdressHRepostaje"
+        app:layout_constraintTop_toBottomOf="@+id/tvCampoAdressHRepostaje" />
+
+    <TextView
+        android:id="@+id/tvCampoPriceHRepostaje"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/historial_repostaje_campo_price"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/tvCampoDateHRepostaje"
+        app:layout_constraintTop_toBottomOf="@+id/tvCampoDateHRepostaje" />
+
+    <TextView
+        android:id="@+id/tvCampoLitersHRepostaje"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/historial_repostaje_campo_liters"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/tvCampoPriceHRepostaje"
+        app:layout_constraintTop_toBottomOf="@+id/tvCampoPriceHRepostaje" />
+    />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

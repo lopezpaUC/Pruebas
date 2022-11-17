@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/menuConvenios"
+        android:title="Convenios" />
+    <item
+        android:id="@+id/menuHistorialRepostajes"
+        android:title="Historial Repostajes" />
+    <item
+        android:id="@+id/menuInfo"
+        android:title="@string/info" />
+    <item
+        android:id="@+id/menuRefresh"
+        android:title="@string/refresh" />
+    <item
+        android:id="@+id/menuAnadeConvenio"
+        android:icon="@drawable/plus_sign"
+        android:title="AñadirConvenio"
+        app:showAsAction="always" />
+</menu>
