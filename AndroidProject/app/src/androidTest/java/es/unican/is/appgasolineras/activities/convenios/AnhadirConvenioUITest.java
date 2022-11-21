@@ -20,6 +20,7 @@ import static org.hamcrest.CoreMatchers.anything;
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;
 
+import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
@@ -52,6 +53,9 @@ public class AnhadirConvenioUITest {
         GasolinerasServiceConstants.setStaticURL();
         // Situacion inicial: 0 convenios
         GasolineraDatabase.getDB(getApplicationContext(), true).convenioDao().deleteAll();
+
+
+        MainView.inicializaTest();
     }
 
     /**
@@ -95,5 +99,7 @@ public class AnhadirConvenioUITest {
         GasolinerasServiceConstants.setMinecoURL();
         // Borrar el convenio añadido
         GasolineraDatabase.getDB(getApplicationContext(), true).convenioDao().deleteAll();
+
+        MainView.acabaTest(ApplicationProvider.getApplicationContext());
     }
 }
