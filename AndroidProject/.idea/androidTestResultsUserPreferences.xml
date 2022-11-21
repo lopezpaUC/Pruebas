@@ -3,12 +3,13 @@
   <component name="AndroidTestResultsUserPreferences">
     <option name="androidTestResultsTableState">
       <map>
-        <entry key="1303151159">
+        <entry key="-567172863">
           <value>
             <AndroidTestResultsTableState>
               <option name="preferredColumnWidths">
                 <map>
                   <entry key="Duration" value="90" />
+                  <entry key="Pixel_2_API_27" value="120" />
                   <entry key="Tests" value="360" />
                 </map>
               </option>
@@ -21,6 +22,7 @@
               <option name="preferredColumnWidths">
                 <map>
                   <entry key="Duration" value="90" />
+                  <entry key="Pixel_2_API_27" value="120" />
                   <entry key="Tests" value="360" />
                 </map>
               </option>

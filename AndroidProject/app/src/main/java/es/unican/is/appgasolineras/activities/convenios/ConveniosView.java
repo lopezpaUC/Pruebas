@@ -26,7 +26,6 @@ import es.unican.is.appgasolineras.activities.toolbar.BarraHerramientasView;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import es.unican.is.appgasolineras.activities.main.MainView;
 import es.unican.is.appgasolineras.common.prefs.IPrefs;
@@ -41,15 +40,14 @@ public class ConveniosView extends AppCompatActivity implements IConveniosContra
     private BarraHerramientasView barraHerramientasView;
     private SwipeRefreshLayout swipeRefreshLayout;
 
-    private IPrefs prefs;
-
     private List<String> marcas;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_convenios_view);
-        this.prefs = Prefs.from(this);
+
+        IPrefs prefs = Prefs.from(this); // solo se usa aqui
 
         // Toolbar
         barraHerramientasView = new BarraHerramientasView(findViewById(R.id.toolbar), this);
@@ -57,12 +55,9 @@ public class ConveniosView extends AppCompatActivity implements IConveniosContra
         presenter = new ConveniosPresenter(this, prefs);
         presenter.init();
         swipeRefreshLayout = findViewById(R.id.swiperefreshConvenio);
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                presenter.init();
-                swipeRefreshLayout.setRefreshing(false);
-            }
+        swipeRefreshLayout.setOnRefreshListener(() -> {
+            presenter.init();
+            swipeRefreshLayout.setRefreshing(false);
         });
 
     }
@@ -155,10 +150,11 @@ public class ConveniosView extends AppCompatActivity implements IConveniosContra
         var marcasArray = new ArrayList();
         marcasArray.addAll(marcas);
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item, marcasArray);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         s.setAdapter(adapter);
+
     }
 
     @Override

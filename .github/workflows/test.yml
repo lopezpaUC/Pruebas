@@ -2,7 +2,7 @@ name: android-tests
 on:
     push:
         branches:
-            - main
+            - master
             - develop
 jobs:
     android-unit-tests:
@@ -56,13 +56,10 @@ jobs:
                 script: ./gradlew connectedCheck
                 
             - name: Android UI tests artifacts
-              uses: actions/upload-artifact@v3
-              if: always()
+              uses: actions/upload-artifact@v2
               with:
                 name: ui-tests-artifacts
-                path: | 
-                  ./AndroidProject/app/build/reports/androidTests/connected
-                  ./AndroidProject/app/build/outputs/androidTests-results/connected/
+                path: ./AndroidProject/app/build/reports/androidTests/connected/index.html
                 
     # android-release-apk:
         # needs: [android-unit-tests, android-integration-tests]

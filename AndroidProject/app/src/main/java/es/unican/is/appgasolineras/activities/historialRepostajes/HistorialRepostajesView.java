@@ -41,12 +41,9 @@ public class HistorialRepostajesView extends AppCompatActivity implements IHisto
 
 
         swipeRefreshLayout = findViewById(R.id.swiperefreshRepostaje);
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                presenter.init();
-                swipeRefreshLayout.setRefreshing(false);
-            }
+        swipeRefreshLayout.setOnRefreshListener(() -> {
+            presenter.init();
+            swipeRefreshLayout.setRefreshing(false);
         });
     }
 

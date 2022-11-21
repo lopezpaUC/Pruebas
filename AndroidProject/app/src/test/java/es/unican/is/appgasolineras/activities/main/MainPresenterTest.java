@@ -1,5 +1,6 @@
 package es.unican.is.appgasolineras.activities.main;
 
+import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -9,6 +10,8 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoInteractions;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
 import android.os.Build;
@@ -20,6 +23,7 @@ import es.unican.is.appgasolineras.activities.toolbar.BarraHerramientasPresenter
 import es.unican.is.appgasolineras.common.prefs.IPrefs;
 import es.unican.is.appgasolineras.model.Gasolinera;
 import es.unican.is.appgasolineras.repository.IGasolinerasRepository;
+import es.unican.is.appgasolineras.repository.rest.GasolinerasServiceConstants;
 
 /**
  * Test unitario del presentador general de la aplicación.
@@ -38,6 +42,7 @@ public class MainPresenterTest {
     private List<Gasolinera> gasolinerasDistancia;
     private List<Gasolinera> gasolinerasSinPrecio;
     private List<Gasolinera> gasolinerasSinPrecioOrdenadas;
+    private List<Gasolinera> gasolinerasAnomalas;
 
     @Mock
     private IGasolinerasRepository repositoryMock;
@@ -52,7 +57,7 @@ public class MainPresenterTest {
     public void setUp() {
         //Inicializacion de los mocks
         MockitoAnnotations.openMocks(this);
-
+        //GasolinerasServiceConstants.setStaticURL();
         //Inicializacion generica
         sut = new MainPresenter(viewMock, prefsMock);
         gasolineras = new ArrayList<Gasolinera>();
@@ -60,6 +65,7 @@ public class MainPresenterTest {
         gasolinerasDistancia = new ArrayList<Gasolinera>();
         gasolinerasSinPrecio = new ArrayList<Gasolinera>();
         gasolinerasSinPrecioOrdenadas = new ArrayList<Gasolinera>();
+        gasolinerasAnomalas = new ArrayList<Gasolinera>();
 
         //Solo se da valor a los campos utilizados durante el test (precio, distancia, id)
 
@@ -99,7 +105,7 @@ public class MainPresenterTest {
             g = new Gasolinera();
             g.setId(String.valueOf(i));
             g.setNormal95(String.valueOf(200-i));
-            g.setDieselA(String.valueOf(100-i));
+            g.setDieselA(String.valueOf(i-100));
             g.getPrecioSumario();
             gasolinerasSinPrecio.add(g);
         }
@@ -126,6 +132,20 @@ public class MainPresenterTest {
         gasolinerasDistancia.add(gasolineras.get(4));
         gasolinerasDistancia.add(gasolineras.get(0));
 
+        //Lista con unas gasolienras anomalas
+        for (int i = 0; i < 2; i++) {
+            g = new Gasolinera();
+            g.setId(String.valueOf(i));
+            if( i == 0) {
+                g.setNormal95("-");
+                g.setDieselA("2");
+            } else {
+                g.setNormal95(String.valueOf(2));
+                g.setDieselA("-");
+            }
+            gasolinerasAnomalas.add(g);
+        }
+
         //Comportamiento de los mocks
         when(viewMock.getGasolineraRepository()).thenReturn(repositoryMock);
         when(repositoryMock.getGasolineras()).thenReturn(gasolineras); //en la mayoria de los casos
@@ -135,6 +155,11 @@ public class MainPresenterTest {
         // y corresponden a Santander
         when(prefsMock.getString("latitud")).thenReturn("43.4635088652");
         when(prefsMock.getString("longitud")).thenReturn("-3.83251340152");
+    }
+
+    @AfterClass
+    public static void clean() {
+        GasolinerasServiceConstants.setMinecoURL();
     }
 
     //Como doSyncInit() es un método privado, se llama al método init() en los tests
@@ -207,4 +232,99 @@ public class MainPresenterTest {
         assert(sut.getShownGasolineras().equals(gasolinerasSinPrecioOrdenadas));
         verify(repositoryMock).getGasolineras();
     }
+
+    /**
+     * Marcos UPR464705.4A
+     */
+    @Test
+    public void onGasolineraClickedDatosCorrectosTest() {
+        //Comportamiento del repositorio con datos correctos
+        when(repositoryMock.getGasolineras()).thenReturn(gasolineras);
+        sut.init();
+
+
+        //Comprobamos que el metodo llama correctamente a la vista
+        sut.onGasolineraClicked(0);
+        Gasolinera gas = sut.getShownGasolineras().get(0);
+        //Verificamos que abre la vista
+        verify(viewMock).openGasolineraDetails(gas);
+        //Verificamos que efectivamente los datos que se ven son correctos PREGUNTAR
+        assert(sut.getShownGasolineras().equals(gasolineras));
+    }
+
+    /**
+     * Marcos UPR464705.4B
+     */
+    @Test
+    public void onGasolineraClickedDatosAusentesTest() {
+        //Comportamiento del repositorio con datos correctos
+        when(repositoryMock.getGasolineras()).thenReturn(gasolinerasAnomalas);
+        sut.init();
+        List<Gasolinera> gasolineras = sut.getShownGasolineras();
+        int indexAusente = gasolineras.size() - 1;
+
+        //Comprobamos que el metodo llama correctamente a la vista
+        sut.onGasolineraClicked(indexAusente);
+        Gasolinera gas = sut.getShownGasolineras().get(indexAusente);
+        //Verificamos que abre la vista
+        verify(viewMock).openGasolineraDetails(gas);
+
+        //Verificamos que efectivamente los datos que se ven son correctos a pesar de ser anomalos
+        assert(sut.getShownGasolineras().equals(gasolinerasAnomalas));
+    }
+
+    /**
+     * Marcos UPR464705.4C
+     */
+    @Test
+    public void onGasolineraClickedDatosIncorrectosTest() {
+        //Comportamiento del repositorio con datos correctos
+        when(repositoryMock.getGasolineras()).thenReturn(gasolinerasSinPrecio);
+        sut.init();
+
+        //Comprobamos que el metodo llama correctamente a la vista
+        sut.onGasolineraClicked(0);
+        Gasolinera gas = sut.getShownGasolineras().get(0);
+        //Verificamos que abre la vista
+        verify(viewMock).openGasolineraDetails(gas);
+        //Verificamos que efectivamente los datos que se ven son correctos a pesar de ser anomalos
+        assert(sut.getShownGasolineras().equals(gasolinerasSinPrecio));
+    }
+
+    /**
+     * Marcos UPR464705.4D
+     */
+    @Test
+    public void onGasolineraClickedSinDarosTest() {
+        //No implementado
+    }
+
+    /**
+     * Marcos UPR464705.4E
+     */
+    @Test
+    public void onGasolineraClickedIndiceNegativoTest() {
+        //Comportamiento del repositorio con datos correctos
+        when(repositoryMock.getGasolineras()).thenReturn(gasolinerasAnomalas);
+        sut.init();
+
+        //Comprobamos que el metodo llama correctamente a la vista
+        sut.onGasolineraClicked(-1);
+        //Como no crashea se supone que se trata el caso del indice negativo
+    }
+
+    /**
+     * Marcos UPR464705.4F
+     */
+    @Test
+    public void onGasolineraClickedIndiceFueraDeRangoTest() {
+        //Comportamiento del repositorio con datos correctos
+        when(repositoryMock.getGasolineras()).thenReturn(gasolinerasAnomalas);
+        sut.init();
+
+        //Comprobamos que el metodo llama correctamente a la vista
+        sut.onGasolineraClicked(100000000);
+        //Como no crashea se supone que se trata el caso del indice fuera de rango
+    }
+
 }

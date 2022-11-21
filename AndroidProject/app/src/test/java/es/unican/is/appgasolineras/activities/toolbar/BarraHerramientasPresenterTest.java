@@ -9,6 +9,10 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static es.unican.is.appgasolineras.activities.toolbar.BarraHerramientasPresenter.ANHADIR;
+
+import es.unican.is.appgasolineras.activities.convenios.ConveniosPresenter;
+import es.unican.is.appgasolineras.activities.convenios.IConveniosContract;
 import es.unican.is.appgasolineras.activities.main.MainPresenter;
 import es.unican.is.appgasolineras.activities.toolbar.BarraHerramientasPresenter;
 import es.unican.is.appgasolineras.common.prefs.IPrefs;
@@ -21,6 +25,7 @@ import es.unican.is.appgasolineras.common.prefs.IPrefs;
  * @author Irene Zamanillo Zubizarreta y Alberto Moro Carrera
  */
 public class BarraHerramientasPresenterTest {
+
     private BarraHerramientasPresenter sut;
 
     @Mock
@@ -121,5 +126,20 @@ public class BarraHerramientasPresenterTest {
 
         verify(prefsMock).putInt(BarraHerramientasPresenter.ORDENAR, 0);
         verify(viewMock).openMainView();
+    }
+
+    /**
+     * Marcos UPR464971.3A
+     */
+    @Test
+    public void onAnhadeConvenioClickedTest() {
+        //Iniciamos la app
+        sut.onAnhadeConvenioClicked();
+        //verificamos que cambia las preferencias
+        verify(prefsMock).putInt(ANHADIR,1);;
+        //verificamos que abre la vista
+        verify(viewMock).openConveniosView();
+
+
     }
 }

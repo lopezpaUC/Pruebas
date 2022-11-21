@@ -1,5 +1,6 @@
 package es.unican.is.appgasolineras.activities.toolbar;
 
+import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 import static es.unican.is.appgasolineras.activities.toolbar.BarraHerramientasPresenter.ORDENAR;
 
 import android.content.Intent;
@@ -12,6 +13,7 @@ import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.ActionBar.LayoutParams;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -59,9 +61,7 @@ public class BarraHerramientasView extends AppCompatActivity implements IBarraHe
         ImageView imageView = new ImageView(actionBar.getThemedContext());
         imageView.setScaleType(ImageView.ScaleType.CENTER);
         imageView.setImageResource(R.drawable.letras_repost_app_230);
-        ActionBar.LayoutParams layoutParams = new ActionBar.LayoutParams(
-                ActionBar.LayoutParams.WRAP_CONTENT,
-                ActionBar.LayoutParams.WRAP_CONTENT, Gravity.LEFT
+        LayoutParams layoutParams = new LayoutParams(WRAP_CONTENT, WRAP_CONTENT, Gravity.LEFT
                 | Gravity.CENTER_VERTICAL);
         layoutParams.rightMargin = 40;
         imageView.setLayoutParams(layoutParams);

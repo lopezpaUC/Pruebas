@@ -37,6 +37,9 @@ public class MainPresenter implements IMainContract.Presenter {
         }
         if (repository != null) {
             doSyncInit();
+
+        } else {
+            doAsyncInit();
         }
         // obtener ubicacion si no se ordena por precio
         if (prefs.getInt(ORDENAR) != 2) {
@@ -138,7 +141,7 @@ public class MainPresenter implements IMainContract.Presenter {
 
     @Override
     public void onGasolineraClicked(int index) {
-        if (shownGasolineras != null && index < shownGasolineras.size()) {
+        if (shownGasolineras != null && index < shownGasolineras.size() && index >= 0) {
             Gasolinera gasolinera = shownGasolineras.get(index);
             view.openGasolineraDetails(gasolinera);
         }

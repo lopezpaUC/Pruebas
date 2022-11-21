@@ -7,7 +7,7 @@ public class GasolinerasServiceConstants {
 
     // para pruebas cambiar master por develop o feature
     private static final String STATIC_API_URL =
-            "https://raw.githubusercontent.com/isunican/App-Gasolineras-Grupo3/master/StaticREST/ServiciosRESTCarburantes/PrecioCarburantes/";
+            "https://raw.githubusercontent.com/isunican/App-Gasolineras-Grupo3/feature/464971-añadirConvenioPrecios/StaticREST/ServiciosRESTCarburantes/PrecioCarburantes/";
 
     private static String apiUrl = MINECO_API_URL;
 

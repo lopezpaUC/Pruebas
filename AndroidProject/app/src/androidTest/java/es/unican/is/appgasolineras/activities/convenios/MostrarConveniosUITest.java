@@ -1,5 +1,7 @@
 package es.unican.is.appgasolineras.activities.convenios;
 
+import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
+import static androidx.test.espresso.Espresso.onData;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.Espresso.openActionBarOverflowOrOptionsMenu;
 import static androidx.test.espresso.Espresso.pressBack;
@@ -7,12 +9,10 @@ import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
+import static org.hamcrest.CoreMatchers.anything;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.Matchers.anyOf;
 import static es.unican.is.appgasolineras.utils.Matchers.hasElements;
-
-import android.content.Context;
-import android.support.test.InstrumentationRegistry;
 
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
@@ -52,7 +52,7 @@ public class MostrarConveniosUITest {
 
     @Test
     public void testConvenioVacioVolverAtras() {
-        openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
+        openActionBarOverflowOrOptionsMenu(getApplicationContext());
         onView(anyOf(withText("Convenios"), withId(R.id.menuConvenios))).perform(click());
         onView(withId(R.id.lvConvenios)).check(matches(not(hasElements())));
         pressBack();
@@ -60,3 +60,4 @@ public class MostrarConveniosUITest {
     }
 
 }
+

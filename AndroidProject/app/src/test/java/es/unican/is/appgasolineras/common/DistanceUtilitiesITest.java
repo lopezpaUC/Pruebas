@@ -20,7 +20,7 @@ import es.unican.is.appgasolineras.common.DistanceUtilities;
  */
 @RunWith(RobolectricTestRunner.class)
 @Config(sdk = {Build.VERSION_CODES.O_MR1})
-public class DistanceUtilitiesTestIT {
+public class DistanceUtilitiesITest {
 
     private DistanceUtilities sut;
 

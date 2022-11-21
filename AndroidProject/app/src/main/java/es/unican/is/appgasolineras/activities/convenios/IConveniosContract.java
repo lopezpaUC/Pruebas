@@ -1,7 +1,6 @@
 package es.unican.is.appgasolineras.activities.convenios;
 
 import java.util.List;
-import java.util.Set;
 
 import es.unican.is.appgasolineras.model.Convenio;
 import es.unican.is.appgasolineras.repository.db.GasolineraDatabase;

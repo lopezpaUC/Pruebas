@@ -16,7 +16,15 @@ import retrofit2.Response;
  */
 class CallRunnable<T> implements Runnable {
     private final Call<T> call;
-    public T response = null;
+    private T response = null;
+
+    public T getResponse(){
+        return response;
+    }
+
+    public void setResponse(T response) {
+        this.response = response;
+    }
 
     CallRunnable(Call<T> call) {
         this.call = call;
@@ -26,7 +34,7 @@ class CallRunnable<T> implements Runnable {
     public void run() {
         try {
             Response<T> answer = call.execute();
-            this.response = answer.body();
+            this.setResponse(answer.body());
         } catch (IOException e) {
             Log.d("ERROR", "IOException lanzada en CallRunnable");
         }

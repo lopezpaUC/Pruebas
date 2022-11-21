@@ -6,7 +6,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
-import androidx.swiperefreshlayout.*;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 
@@ -45,7 +44,6 @@ public class MainView extends AppCompatActivity implements IMainContract.View {
     private FusedLocationProviderClient fusedLocationClient;
     private Location currentLocation;
     private static int debug = 0;
-    private SwipeRefreshLayout swipeRefreshLayout;
     /*
     Activity lifecycle methods
      */
@@ -69,13 +67,12 @@ public class MainView extends AppCompatActivity implements IMainContract.View {
 
         presenter = new MainPresenter(this, prefs);
         presenter.init();
+
+        SwipeRefreshLayout swipeRefreshLayout; // solo se usa aqui
         swipeRefreshLayout = findViewById(R.id.swiperefresh);
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                presenter.init();
-                swipeRefreshLayout.setRefreshing(false);
-            }
+        swipeRefreshLayout.setOnRefreshListener(() -> {
+            presenter.init();
+            swipeRefreshLayout.setRefreshing(false);
         });
         this.init();
     }
@@ -183,9 +180,7 @@ public class MainView extends AppCompatActivity implements IMainContract.View {
 
         builder.setMessage(R.string.gpsError);
         builder.setPositiveButton(R.string.aceptar, (dialogInterface, i)
-                -> {
-            dialogInterface.cancel();
-        } );
+                -> dialogInterface.cancel());
         builder.setNegativeButton(R.string.reintentar, (dialogInterface, i)
                 -> { // funciona bien
             presenter = new MainPresenter(this, prefs);

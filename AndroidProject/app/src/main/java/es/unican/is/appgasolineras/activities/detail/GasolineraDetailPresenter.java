@@ -66,19 +66,31 @@ public class GasolineraDetailPresenter {
 
     public String getDieselA() {
         String txt = "-";
-        String diesel = gasolinera.getDieselA().substring(0, 4);
-        if (!diesel.equals("") && Double.parseDouble(diesel.replace(',', '.')) > 0) {
-            txt = diesel + DIVISA;
+        String diesel;
+        try {
+            diesel = gasolinera.getDieselA().substring(0, 4);
+            if (!diesel.equals("") && Double.parseDouble(diesel.replace(',', '.')) > 0) {
+                txt = diesel + DIVISA;
+            }
+        } catch (IndexOutOfBoundsException e){
         }
+        
         return txt;
     }
 
     public String getNormal95() {
         String txt = "-";
-        String gasolina = gasolinera.getNormal95().substring(0, 4);
-        if (!gasolina.equals("")  && Double.parseDouble(gasolina.replace(',', '.')) > 0) {
-            txt = gasolina + DIVISA;
+
+        String gasolina;
+        try {
+            gasolina  = gasolinera.getNormal95().substring(0, 4);
+            if (!gasolina.equals("")  && Double.parseDouble(gasolina.replace(',', '.')) > 0) {
+                txt = gasolina + DIVISA;
+            }
+        } catch (IndexOutOfBoundsException e){
+
         }
+
         return txt;
     }
 

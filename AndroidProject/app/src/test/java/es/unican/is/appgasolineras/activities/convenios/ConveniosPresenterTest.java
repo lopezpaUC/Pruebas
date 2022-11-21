@@ -1,7 +1,10 @@
 package es.unican.is.appgasolineras.activities.convenios;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
 import static es.unican.is.appgasolineras.activities.toolbar.BarraHerramientasPresenter.ANHADIR;
@@ -65,9 +68,11 @@ public class ConveniosPresenterTest {
     }
     @Before
     public void setUp()  {
+
         // Inicializar mocks
         MockitoAnnotations.openMocks(this);
         when(mockPrefs.getInt(ANHADIR)).thenReturn(0);
+        sut = new ConveniosPresenter(mockConveniosView, mockPrefs);
     }
 
     @Test
@@ -401,5 +406,50 @@ public class ConveniosPresenterTest {
         // Comprobar funcionamiento
         sut.onConvenioAnhadirClicked("", "Campsa");
         verify(mockConveniosView).showErrorDescuento();
+    }
+    /**
+     * Test UPR464971.1A
+     * Marcos Fernadnez Alonso
+     */
+    @Test
+    public void onSiSobrescribirClickedTest(){
+        convenios = new ArrayList<Convenio>();
+        llenarDatos(false);
+        //Iniciamos el convenio que vamos a modificar
+        Convenio cFinal = new Convenio();
+        cFinal.setMarca("Campsa");
+        cFinal.setDescuento(80);
+        //programamos el comportamiento de los mocks
+        when(mockConveniosView.getDatabase()).thenReturn(mockDb);
+        when(mockDb.convenioDao()).thenReturn(mockConvenioDao);
+        when(mockConvenioDao.getAll()).thenReturn(convenios);
+        when(mockConvenioDao.buscaConvenioPorMarca(cFinal.getMarca())).thenReturn(convenios.get(0));
+
+
+        sut.init();
+        sut.onSiSobreescribirClicked(cFinal);
+        //Nos aseguramos de que llama a los metodos adecaudos
+        verify(mockConvenioDao).updateConvenio(cFinal);
+        verify(mockConveniosView).refresh();
+        verify(mockConveniosView).showConvenioAnhadido();
+
+    }
+    /**
+     * Test UPR464971.2A
+     * Marcos Fernadnez Alonso
+     */
+    @Test
+    public void onNoSobrescribirClickedTest(){
+        convenios = new ArrayList<Convenio>();
+        llenarDatos(false);
+
+        when(mockConveniosView.getDatabase()).thenReturn(mockDb);
+        when(mockDb.convenioDao()).thenReturn(mockConvenioDao);
+        when(mockConvenioDao.getAll()).thenReturn(convenios);
+        sut.init();
+        sut.onNoSobreescribirClicked();
+        //No hay nada que llamar a nada
+        verify(mockConveniosView,times(0)).refresh();
+        verify(mockConveniosView,times(0)).showConvenioAnhadido();
     }
 }

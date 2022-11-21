@@ -20,7 +20,7 @@ import es.unican.is.appgasolineras.model.Gasolinera;
  */
 @RunWith(RobolectricTestRunner.class)
 @Config(sdk = {Build.VERSION_CODES.O_MR1})
-public class GasolineraUbicacionComparatorTestIT {
+public class GasolineraUbicacionComparatorITest {
 
     private GasolineraUbicacionComparator sut;
 

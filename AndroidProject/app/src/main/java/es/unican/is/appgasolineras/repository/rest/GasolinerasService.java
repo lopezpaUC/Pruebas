@@ -64,7 +64,7 @@ public class GasolinerasService {
         }
 
         // if there was some problem, response is null
-        return runnable.response;
+        return runnable.getResponse();
     }
 
     private GasolinerasService() {
